@@ -82,8 +82,16 @@ public class MemberController {
 				JOptionPane.showMessageDialog(null, member.getId()+"유저 로그인"); 
 				break;
 			case "7":
-				//service.adminMenu();
-				return;
+				arr = new String[7];
+				arr[0] = member.getName();
+				arr[1] = member.getId();
+				arr[2] = member.getPw();
+				arr[3] = member.getSsn();
+				arr[4] = member.getBlood();
+				arr[5] = String.valueOf(member.getHeight());
+				arr[6] = String.valueOf(member.getWeight());
+				service.adminMenu(arr);
+				break;
 			case "8":
 				member = service.indexPlus(member);	
 				break;
@@ -100,10 +108,11 @@ public class MemberController {
 			case "13" :
 				members = new MemberBean[3];
 				members = service.findByName(JOptionPane.showInputDialog("검색할 이름을 입력하세요."));
-				for (int i = 0; i < members.length; i++) {
-					if (members[i].getId() != null) {
-						result += members[i].toString() + "\n";// 멤버스인스턴스배열을 대충 3칸만 만들었기때문에 사용하는것만 파악해서 저장.
-					}
+				for (int i = 0; i < members.length; i++) {//검색은 항상 브레이크.
+					result += members[i].toString() + "\n";// 멤버스인스턴스배열을 대충 3칸만 만들었기때문에 사용하는것만 파악해서 저장.
+					if (members[i].getId() == null)	{
+						break;					
+						}
 				}
 				JOptionPane.showMessageDialog(null, result);
 				result = "";
